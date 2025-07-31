@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: ml-pipeline-loan-api
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    plan: free
+    envVars:
+      - key: PORT
+        value: 10000
