@@ -6,6 +6,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.linear_model import SGDRegressor
 
+
 # --- 1. Load Your Dataset ---
 try:
     df = pd.read_csv("pricing.csv")

@@ -1,13 +1,49 @@
 # utils.py
 import sqlite3, os, joblib, requests
+import pandas as pd
+from sklearn.linear_model import SGDRegressor
+from preprocessor import preprocess_data
 
 MODEL_PATH = "model.pkl"
 TRACK_FILE = "last_id.txt"
 DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data.db")
 
+COLUMNS = [
+    "cash_transactions",
+    "digital_transactions",
+    "num_customers",
+    "hours_open",
+    "expense",
+    "income",
+    "weather",
+    "missed_day",
+    "local_event",
+    "credit_score",
+]
+
 
 def insert_data(x, y):
-    pass
+    """
+    Insert new data into the database.
+    x: list of feature values
+    y: target value (credit_score)
+    """
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+
+    # Insert the new data
+    cursor.execute(
+        """
+        INSERT INTO entries (
+            cash_transactions, digital_transactions, num_customers, 
+            hours_open, expense, income, weather, missed_day, local_event, credit_score
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """,
+        x + [y],
+    )
+
+    conn.commit()
+    conn.close()
 
 
 def fetch_new_data(last_id):
