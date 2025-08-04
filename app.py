@@ -7,7 +7,7 @@ import pandas as pd
 import traceback
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all origins
+CORS(app)
 
 
 @app.route("/submit", methods=["POST"])
