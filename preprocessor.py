@@ -1,3 +1,6 @@
+import joblib
+
+
 def preprocess_data(X):
     preprocessor = joblib.load("preprocessor.pkl")
 
