@@ -10,7 +10,6 @@ from preprocessor import preprocess_data
 from sklearn.linear_model import SGDRegressor
 import os
 
-N = 5  # Minimum number of new records to trigger training
 
 COLUMNS = [
     "id",
@@ -30,10 +29,6 @@ COLUMNS = [
 def train_model():
     last_id = get_last_trained_id()
     new_rows = fetch_new_data(last_id)
-
-    if len(new_rows) < N:
-        print(f"Only {len(new_rows)} new entries. Waiting for more.")
-        return
 
     new_data_df = pd.DataFrame(new_rows, columns=COLUMNS)
     last_training_id = new_data_df["id"].iloc[-1]
